@@ -246,7 +246,16 @@ const mine = new Command()
 
         const signed = await txMine.sign().complete();
 
-        await signed.submit();
+        const url = http://localhost:8090/api/submit/tx
+        const req = new Request(url, {
+              method: "POST",
+              body: signed.txSigned.to_bytes(),
+              headers: {
+                'content-type': 'application/cbor',
+              }
+            });
+        var resp = await fetch(req);
+        console.log(resp);
 
         console.log(`TX HASH: ${signed.toHash()}`);
         console.log("Waiting for confirmation...");
